@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import PreviewCard from "./PreviewCard";
 
 const PreviewData = () => {
-  const state = useSelector((state) => state.booking);
+  const state = useSelector((state) => state.booking); 
   return (
     <div className="table-container">
       <table className="booking-table">
@@ -18,7 +18,7 @@ const PreviewData = () => {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-300/20" id="lws-previewBooked">
-          {state?.booking?.map((booking) => (
+          {state.booking.map((booking) => (
             <PreviewCard key={booking.id} booking={booking} />
           ))}
         </tbody>

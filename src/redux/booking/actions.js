@@ -8,7 +8,6 @@ export const book = (bookingInfo) => {
 };
 
 export const remove = (id) => {
-  console.log(id);
   return {
     type: REMOVE,
     payload: id,

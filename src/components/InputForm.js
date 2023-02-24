@@ -1,5 +1,4 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import frame from "./../assets/icons/Frame.svg";
 import vector1 from "./../assets/icons/Vector_1.svg";
@@ -7,9 +6,9 @@ import vector3 from "./../assets/icons/Vector_3.svg";
 import { book } from "./../redux/booking/actions";
 
 const InputForm = () => {
+  const state = useSelector((state) => state.booking); 
   const dispatch = useDispatch();
-
-  const handleSubmit = (e) => {
+  const handleFromSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const bookingInfo = {
@@ -62,7 +61,7 @@ const InputForm = () => {
   return (
     <div className="mt-[160px] mx-4 md:mt-[160px] relative">
       <div className="bg-white rounded-md max-w-6xl w-full mx-auto">
-        <form className="first-hero lws-inputform" onSubmit={handleSubmit}>
+        <form className="first-hero lws-inputform" onSubmit={handleFromSubmit}>
           {/* <!-- From --> */}
           <div className="des-from">
             <p>Destination From</p>
@@ -156,7 +155,13 @@ const InputForm = () => {
             </div>
           </div>
 
-          <button className="addCity" type="submit" id="lws-addCity">
+          <button
+            className="addCity"
+            disabled={state.booking.length >= 3}
+            style={state.booking.length >= 3 ? { opacity: ".5" } : { opacity: "1" }}
+            type="submit"
+            id="lws-addCity"
+          >
             <svg
               width="15px"
               height="15px"
