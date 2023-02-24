@@ -1,9 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 import frame from "./../assets/icons/Frame.svg";
 import vector1 from "./../assets/icons/Vector_1.svg";
 import vector3 from "./../assets/icons/Vector_3.svg";
-import { book } from './../redux/booking/actions';
+import { book } from "./../redux/booking/actions";
 
 const InputForm = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,44 @@ const InputForm = () => {
       guests: formData.get("guests"),
       ticketClass: formData.get("ticketClass"),
     };
+    if (bookingInfo.from === "") {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please select a destination from",
+      });
+      return;
+    } else if (bookingInfo.to === "") {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please select a destination to",
+      });
+      return;
+    } else if (bookingInfo.date === "") {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please select a date",
+      });
+      return;
+    } else if (bookingInfo.guests === "") {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please select number of guests",
+      });
+      return;
+    } else if (bookingInfo.ticketClass === "") {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please select a class",
+      });
+      return;
+    }
     dispatch(book(bookingInfo));
+    e.target.reset();
   };
 
   return (
@@ -34,7 +72,6 @@ const InputForm = () => {
                 className="outline-none px-2 py-2 w-full"
                 name="from"
                 id="lws-from"
-                required
               >
                 <option value="" hidden>
                   Please Select
@@ -56,7 +93,6 @@ const InputForm = () => {
                 className="outline-none px-2 py-2 w-full"
                 name="to"
                 id="lws-to"
-                required
               >
                 <option value="" hidden>
                   Please Select
@@ -77,7 +113,6 @@ const InputForm = () => {
               className="outline-none px-2 py-2 w-full date"
               name="date"
               id="lws-date"
-              required
             />
           </div>
 
@@ -90,7 +125,6 @@ const InputForm = () => {
                 className="outline-none px-2 py-2 w-full"
                 name="guests"
                 id="lws-guests"
-                required
               >
                 <option value="" hidden>
                   Please Select
@@ -112,7 +146,6 @@ const InputForm = () => {
                 className="outline-none px-2 py-2 w-full"
                 name="ticketClass"
                 id="lws-ticketClass"
-                required
               >
                 <option value="" hidden>
                   Please Select

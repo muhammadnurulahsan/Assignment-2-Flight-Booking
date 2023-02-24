@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { BOOK, REMOVE } from "./actionTypes";
 
 const initialState = {
@@ -8,7 +9,11 @@ const bookingReducer = (state = initialState, action) => {
   switch (action.type) {
     case BOOK:
       if (state.booking.length === 3) {
-        alert("Ticket not available!");
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "You can't book more than 3 tickets",
+        })
         return state;
       }
       return {
